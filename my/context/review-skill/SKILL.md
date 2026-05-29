@@ -15,58 +15,20 @@ Read these before reviewing:
 - Read `references/best-practices.md` — for evaluating body content quality, context efficiency, and instruction patterns
 - Read `references/optimizing-descriptions.md` — for evaluating description triggering quality
 
-## Review checklist
+## Review dimensions
 
-### 1. Specification compliance
+Evaluate the skill across these areas (see references for detailed criteria):
 
-- `name`: lowercase, hyphens only, no consecutive hyphens, matches directory name, ≤64 chars
-- `description`: non-empty, ≤1024 chars, describes what the skill does and when to use it
-- Body: valid markdown after YAML frontmatter
-- Size: body under 500 lines / ~5000 tokens (progressive disclosure)
-
-### 2. Description quality
-
-- Uses imperative framing ("Use when…") not declarative ("This skill does…")
-- Focuses on user intent, not implementation details
-- Explicitly lists trigger contexts, including non-obvious ones
-- Includes a negative boundary (what the skill is NOT for)
-- Concise: a few sentences to a short paragraph
-
-### 3. Body content — spending context wisely
-
-- Does NOT teach the agent things it already knows (generic writing advice, common programming concepts)
-- Contains knowledge the agent would get wrong without being told
-- Gotchas and edge cases that defy reasonable assumptions
-- No redundancy between description and body (description triggers activation; body guides execution)
-
-### 4. Body content — calibrating control
-
-- Prescriptive where operations are fragile or consistency matters
-- Flexible where multiple approaches are valid
-- Provides defaults, not menus of equal options
-- Favors procedures over declarations
-- Includes a validation loop where appropriate (do → verify → fix → re-verify)
-
-### 5. Patterns present where useful
-
-- Gotchas section for environment-specific facts
-- Output format template (if consistent output is needed)
-- Checklists for multi-step workflows
-- Progressive disclosure: references/ for detail loaded on demand
-
-### 6. Things to flag
-
-- Content the agent already knows (candidate for removal)
-- Redundancy between sections or between description and body
-- Arbitrary thresholds without justification
-- Missing negative boundaries in description
-- Instructions that could cause false triggers or wasted steps
+1. **Spec compliance** — frontmatter fields, naming rules, size limits
+2. **Description quality** — imperative framing, trigger coverage, negative boundary, conciseness
+3. **Context efficiency** — only teaches what the agent would get wrong without it; no redundancy with description
+4. **Control calibration** — prescriptive where fragile, flexible where multiple approaches work; defaults not menus
+5. **Useful patterns** — gotchas, output templates, checklists, validation loops, progressive disclosure
 
 ## Workflow
 
-1. Read the skill file
-2. Run through the review checklist
-3. Present numbered findings with severity:
+1. Run through the review dimensions
+2. Present numbered findings with severity:
    - **Violation**: breaks spec or will cause incorrect behavior
    - **Improvement**: follows spec but underperforms against best practices
    - **Nitpick**: minor, optional enhancement
