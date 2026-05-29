@@ -1,3 +1,0 @@
-# Source for external skills
-
-- grill-me: https://raw.githubusercontent.com/mattpocock/skills/62f43a18177be6ec82da242e59ffbc490a4c22ea/skills/productivity/grill-me/SKILL.md
