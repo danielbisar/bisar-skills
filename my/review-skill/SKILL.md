@@ -9,15 +9,13 @@ Evaluate a SKILL.md file against the Agent Skills specification and best practic
 
 ## References
 
-Read these before reviewing:
+Read before reviewing:
 
-- Read `references/specification.md` — for checking frontmatter, naming, structure, and progressive disclosure rules
-- Read `references/best-practices.md` — for evaluating body content quality, context efficiency, and instruction patterns
-- Read `references/optimizing-descriptions.md` — for evaluating description triggering quality
+- `references/specification.md` — frontmatter, naming, structure, progressive disclosure rules
+- `references/best-practices.md` — body content quality, context efficiency, instruction patterns
+- `references/optimizing-descriptions.md` — description triggering quality
 
 ## Review dimensions
-
-Evaluate the skill across these areas (see references for detailed criteria):
 
 1. **Spec compliance** — frontmatter fields, naming rules, size limits
 2. **Description quality** — imperative framing, trigger coverage, negative boundary, conciseness
@@ -29,21 +27,18 @@ Evaluate the skill across these areas (see references for detailed criteria):
 
 1. Run through the review dimensions
 2. Present numbered findings with severity:
-   - **Violation**: breaks spec or will cause incorrect behavior
+   - **Violation**: breaks spec or causes incorrect behavior
    - **Improvement**: follows spec but underperforms against best practices
    - **Nitpick**: minor, optional enhancement
-4. After presenting findings, offer numbered next steps the user can choose from
+3. Offer numbered next steps the user can choose from
 
 ## Output format
-
-Present findings as a numbered list:
 
 ```
 ## Findings
 
 1. [Severity] **Short title** — Explanation and recommendation.
-2. [Severity] **Short title** — Explanation and recommendation.
-...
+2. ...
 
 ## Next steps
 
@@ -52,4 +47,4 @@ Present findings as a numbered list:
 3. Done for now
 ```
 
-Always let the user choose next steps by number. Do not apply fixes without selection.
+Do not apply fixes without user selection.

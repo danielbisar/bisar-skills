@@ -4,20 +4,16 @@ Source: https://agentskills.io/skill-creation/optimizing-descriptions
 
 ## How skill triggering works
 
-Agents load only `name` and `description` at startup. When a task matches a description, the agent reads the full SKILL.md.
+Agents load only `name` and `description` at startup. When a task matches, the agent reads full SKILL.md.
 
-The description carries the entire burden of triggering. If it doesn't convey when the skill is useful, the agent won't reach for it.
-
-Important nuance: agents typically only consult skills for tasks requiring knowledge beyond what they can handle alone. Simple one-step requests may not trigger even with a perfect description match.
+The description carries the entire triggering burden. Agents typically only consult skills for tasks requiring knowledge beyond what they can handle alone.
 
 ## Writing effective descriptions
 
-### Principles
-
-- **Use imperative phrasing**: "Use this skill when…" not "This skill does…" The agent is deciding whether to act — tell it *when* to act.
-- **Focus on user intent, not implementation**: Describe what the user is trying to achieve, not the skill's internal mechanics.
-- **Err on the side of being pushy**: Explicitly list contexts where the skill applies, including cases where the user doesn't name the domain directly.
-- **Keep it concise**: A few sentences to a short paragraph. Long enough to cover scope, short enough to not bloat context across many skills. Hard limit: 1024 characters.
+- **Imperative phrasing**: "Use this skill when…" not "This skill does…" — tell the agent *when* to act.
+- **Focus on user intent**: Describe what the user is trying to achieve, not internal mechanics.
+- **Be pushy**: Explicitly list contexts where the skill applies, including indirect references.
+- **Stay concise**: Few sentences to a short paragraph. Hard limit: 1024 characters.
 
 ## Designing trigger eval queries
 
@@ -33,62 +29,45 @@ Format:
 
 ### Should-trigger queries
 
-Vary along:
-- **Phrasing**: formal, casual, typos, abbreviations
-- **Explicitness**: some name the domain directly, others describe the need without naming it
-- **Detail**: mix terse prompts with context-heavy ones
-- **Complexity**: single-step tasks alongside multi-step workflows
+Vary along: phrasing (formal/casual/typos), explicitness (naming domain vs describing need), detail level, complexity (single-step vs multi-step).
 
-Most useful: queries where the skill would help but the connection isn't obvious from the query alone.
+Most useful: queries where the skill would help but the connection isn't obvious.
 
 ### Should-not-trigger queries
 
-Most valuable: **near-misses** — queries sharing keywords/concepts with your skill but needing something different.
+Most valuable: **near-misses** — queries sharing keywords/concepts but needing something different.
 
-Weak negatives: obviously irrelevant queries (test nothing).
-Strong negatives: share domain concepts but need a different capability.
+Weak negatives (obviously irrelevant) test nothing. Strong negatives share domain concepts but need a different capability.
 
-### Tips for realism
+### Realism tips
 
-Include: file paths, personal context ("my manager asked me to..."), specific details, casual language, abbreviations, typos.
+Include: file paths, personal context, specific details, casual language, abbreviations, typos.
 
-## Testing whether a description triggers
+## Testing triggers
 
-Run each query through the agent with the skill installed. The skill triggered if the agent loaded SKILL.md; it didn't trigger if the agent proceeded without it.
+Run each query through the agent with the skill installed. Skill triggered = agent loaded SKILL.md.
 
-A query passes if:
-- `should_trigger: true` and skill was invoked, OR
-- `should_trigger: false` and skill was NOT invoked
-
-### Running multiple times
-
-Model behavior is nondeterministic. Run each query 3+ times, compute trigger rate. Should-trigger passes if rate > 0.5. Should-not-trigger passes if rate < 0.5.
+Model behavior is nondeterministic — run each query 3+ times. Should-trigger passes if rate > 0.5. Should-not-trigger passes if rate < 0.5.
 
 ## Avoiding overfitting
 
-Split query set:
-- **Train set (~60%)**: guides improvements
-- **Validation set (~40%)**: checks whether improvements generalize
-
-Both sets need proportional mix of positive/negative queries. Keep split fixed across iterations.
+Split queries into train (~60%) and validation (~40%) sets. Both need proportional positive/negative mix. Only use train failures to guide changes.
 
 ## The optimization loop
 
 1. Evaluate current description on train and validation sets
-2. Identify train set failures (only use train failures to guide changes)
+2. Identify train set failures
 3. Revise description:
-   - Should-trigger failing → description too narrow. Broaden scope.
-   - Should-not-trigger failing → description too broad. Add specificity about what skill does NOT do.
-   - Don't add specific keywords from failed queries (overfitting). Find the general category instead.
-   - If stuck, try structurally different approach rather than incremental tweaks.
-   - Check description stays under 1024 chars (they tend to grow).
-4. Repeat until train set passes or no meaningful improvement
-5. Select best iteration by validation pass rate (may not be the last one)
-
-Five iterations is usually enough. If not improving, issue may be with queries rather than description.
+   - Should-trigger failing → too narrow, broaden scope
+   - Should-not-trigger failing → too broad, add specificity about what skill does NOT do
+   - Don't add specific keywords from failed queries (overfitting) — find the general category
+   - If stuck, try structurally different approach
+   - Check stays under 1024 chars
+4. Repeat until train set passes (~5 iterations usually enough)
+5. Select best iteration by validation pass rate
 
 ## Applying the result
 
-1. Update `description` field in SKILL.md frontmatter
+1. Update `description` in SKILL.md frontmatter
 2. Verify under 1024-character limit
-3. Verify triggers as expected — try fresh queries (never part of optimization) for honest generalization check
+3. Verify with fresh queries (never part of optimization) for honest generalization check
