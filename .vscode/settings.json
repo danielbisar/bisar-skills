@@ -1,0 +1,6 @@
+{
+    "chat.agentSkillsLocations": {
+        "my": true,
+        "others": true
+    }
+}
