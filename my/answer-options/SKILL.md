@@ -1,41 +1,28 @@
 ---
 name: answer-options
-description: Ask the user a question with concise numbered answer options and a proposed answer to reduce typing. Use when a multiple-choice prompt will speed up replies without distorting the user's answer. Do not use when likely answers do not fit a small, meaningful option set.
+description: Use this skill when asking a question where concise numbered options would reduce typing or speed the reply. Use for suggested answers and similar cases where the user can reply with a number. Do not use when a small option set would distort the user's real answer.
 ---
 
 # Answer Options
 
-Ask one question at a time using numbered answer options so the user can reply with just a number.
+Ask one question at a time with numbered options so the user can reply by number.
 
-## Use when
+## Decision rule
 
-Use this skill when:
+Use when a small, meaningful set of options will speed the reply.
 
-- A short set of options will reduce typing
-- The likely answers can be covered well by a small option set
-- A proposed answer would help move the discussion forward
-
-Do not use this skill when:
-
-- Forcing options would distort the user's real answer
-- The answer space is too broad or unclear for a small, meaningful set
-
-In those cases, ask open-ended instead.
+Do not use when options would distort the user's real answer; ask open-ended instead.
 
 ## Rules
 
-- Prefer 3-5 options when using numbered answers
-- Make options concise, meaningfully distinct, and collectively cover the likely answers
-- Optimize options for fast reply by number alone
-- If the user replies with just a number, treat it as selecting that option without extra confirmation
-- Do not add catch-all options like "Other" by default
-- Include `Proposed answer` whenever numbered options are present
-- Omit `Rationale` unless it adds decision-useful guidance
+- Prefer 3-5 concise, distinct options that cover likely answers
+- Optimize for reply by number alone
+- Treat a bare number reply as selecting that option
+- Include `Proposed answer` by default; omit it if it would bias or prematurely narrow the answer
+- Omit `Rationale` unless decision-useful
 - If no good small option set exists, ask open-ended instead of forcing weak options
 
-## Templates
-
-### Multiple-choice
+## Template
 
 ```markdown
 **Question**
@@ -48,14 +35,4 @@ Proposed answer: [number]
 Rationale: [only if useful]
 
 Reply with the number, or your own answer.
-```
-
-### Open-ended fallback
-
-```markdown
-**Question**
-
-Rationale: [only if useful]
-
-Reply with your answer.
 ```
