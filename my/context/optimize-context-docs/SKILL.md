@@ -1,6 +1,6 @@
 ---
 name: optimize-context-docs
-description: Optimizes context-heavy repository documents such as agent prompts, system prompts, AGENTS.md, onboarding docs, guidance files, and long how-to docs. Use when the user asks to shorten, condense, deduplicate, or clean up prompt-like files while preserving behavior, constraints, guardrails, formats, and decision-relevant details.
+description: Reduce token usage in documents that serve as LLM context while preserving behavior, constraints, and guardrails. Covers agent prompts, system prompts, skill files, instruction files, onboarding docs, and similar artifacts. Use when the user wants to shorten, compress, deduplicate, or clean up any file consumed as agent or model context, even if they just say "too long" or "make it shorter." Do not use for general prose editing, summarization of end-user docs, or copywriting.
 ---
 
 # Optimize Context
@@ -24,7 +24,6 @@ If the user names a file, optimize only that file unless they ask for a broader 
 
 Do not:
 
-- Change technical meaning, requirements, naming conventions, or operational rules
 - Remove prohibitions, safety constraints, or must/never rules
 - Delete decision-relevant content
 - Invent repo structure, policies, tools, or processes
@@ -56,12 +55,9 @@ If importance is unclear, keep the content but compress it.
    - Redundant/obsolete: repeated, superseded, stale, or no longer used
 
 3. Compress safely
-   - Convert verbose paragraphs to concise bullets
    - Merge overlapping sections
    - Deduplicate repeated rules
-   - Replace hedging with direct conditions, e.g. “If X, do Y”
    - Keep concrete specifics intact
-   - Remove filler, repeated rationale, and unnecessary explanation
 
 4. Verify
    - Check every critical and important rule still exists
@@ -104,14 +100,5 @@ Use a practical size proxy such as lines, words, or characters. If a token count
 - Multiple purposes in one file: suggest splitting, but do not split without instruction
 - Contradictions: surface them instead of choosing one silently
 - Archival docs: do not optimize archival records unless the user explicitly asks
-
-## Progress updates
-
-For longer tasks, provide short updates at meaningful stages:
-
-- Scanning structure
-- Classifying content
-- Optimizing
-- Verifying
 
 Ask questions only when needed to avoid changing meaning.
