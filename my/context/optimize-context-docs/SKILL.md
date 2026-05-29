@@ -7,17 +7,6 @@ description: Reduce token usage in documents that serve as LLM context while pre
 
 Reduce token usage in context artifacts without changing meaning, behavior, requirements, or guardrails.
 
-Context artifacts include:
-
-- Agent prompts
-- System prompts
-- `AGENTS.md`
-- `.github/agents/*.agent.md`
-- `.github/prompts/*`
-- Onboarding and guidance docs
-- SKILL.md files
-- Long how-to or knowledge docs used as model context
-
 If the user names a file, optimize only that file unless they ask for a broader sweep.
 
 ## Core rules
@@ -65,40 +54,26 @@ If importance is unclear, keep the content but compress it.
    - Check no new ambiguity was introduced
    - Check required formats still work
    - Check the document remains usable standalone
+   - If any check fails, fix the issue and re-verify until all checks pass
 
 ## Output format
 
-Always provide:
+After optimizing, provide a brief report:
 
-~~~markdown
-## Optimization analysis
+```markdown
+## Optimization report
 
-- Size before: [lines/words/chars/tokens, with method]
-- Size after: [lines/words/chars/tokens, with method]
-- Main reductions:
-  - [...]
-- Risk notes:
-  - [...]
+- Before: [size metric]
+- After:  [size metric]
+- Reduction: [percentage]
+- Cuts: [what was removed or merged]
+- Risks: [anything that might have changed meaning, or "none"]
+```
 
-## Optimized content
-
-[Updated file in place when working in a repo, or full optimized content when returning text]
-
-## Implementation summary
-
-- [...]
-- [...]
-- [...]
-~~~
-
-Use a practical size proxy such as lines, words, or characters. If a token counter is available, state which method was used.
+Then edit the file in place, or output the full optimized content if not working in a repo.
 
 ## Edge cases
 
-- Already lean: if less than roughly 20% reduction is safe, do minor cleanup only and explain why larger cuts risk meaning loss
 - Unclear importance: keep and compress; ask whether it may be removed
-- Multiple purposes in one file: suggest splitting, but do not split without instruction
-- Contradictions: surface them instead of choosing one silently
-- Archival docs: do not optimize archival records unless the user explicitly asks
 
 Ask questions only when needed to avoid changing meaning.
