@@ -19,8 +19,8 @@ Read before reviewing:
 
 1. **Spec compliance** — frontmatter fields, naming rules, size limits
 2. **Description quality** — imperative framing, trigger coverage, negative boundary, conciseness
-3. **Context efficiency** — only teaches what the agent would get wrong without it; no redundancy with description
-4. **Control calibration** — prescriptive where fragile, flexible where multiple approaches work; defaults not menus
+3. **Context efficiency** — only teaches what the agent would get wrong without it; no redundancy with description. Before recommending additions, state what the agent would get wrong without them.
+4. **Control calibration** — prescriptive where fragile, flexible where multiple approaches work; defaults not menus. Distinguish procedure skills (fragile sequence, tool choreography, project-specific gotchas → structure helps) from persona/mode skills (set tone, few unique constraints → brevity is correct).
 5. **Useful patterns** — gotchas, output templates, checklists, validation loops, progressive disclosure
 
 ## Workflow
