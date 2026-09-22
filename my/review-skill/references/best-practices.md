@@ -108,3 +108,11 @@ For batch/destructive operations: create plan → validate against source of tru
 ### Bundling reusable scripts
 
 If the agent reinvents the same logic each run, write a tested script and bundle it in `scripts/`.
+
+Review bundled scripts using `using-scripts.md`.
+
+## Evaluate outcomes, not only instructions
+
+Trigger accuracy does not prove that a skill improves results. Compare realistic clean-context runs with and without the skill, inspect execution traces, and weigh output gains against added token and time costs.
+
+Use `evaluating-skills.md` for the evaluation workflow.

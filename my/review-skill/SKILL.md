@@ -1,6 +1,9 @@
 ---
 name: review-skill
 description: Review and improve Agent Skills (SKILL.md files) against the agentskills.io specification and best practices. Use when the user wants to evaluate, audit, lint, or improve a skill file — including its description, body content, structure, and triggering quality. Also use when the user says "review this skill," "is this skill good," or "how can I improve this skill." Do not use for general document optimization or non-skill markdown files.
+metadata:
+  agentskills-references-last-updated: "2026-09-22"
+  agentskills-source-revision: "69ef37e9424c0a7ea9dd2293b559e43ec8176379"
 ---
 
 # Review Skill
@@ -14,6 +17,8 @@ Read before reviewing:
 - `references/specification.md` — frontmatter, naming, structure, progressive disclosure rules
 - `references/best-practices.md` — body content quality, context efficiency, instruction patterns
 - `references/optimizing-descriptions.md` — description triggering quality
+- `references/using-scripts.md` — script interfaces, safety, portability, and output handling
+- `references/evaluating-skills.md` — output-quality evaluation and comparison methodology
 
 ## Review dimensions
 
@@ -22,6 +27,8 @@ Read before reviewing:
 3. **Context efficiency** — only teaches what the agent would get wrong without it; no redundancy with description. Before recommending additions, state what the agent would get wrong without them.
 4. **Control calibration** — prescriptive where fragile, flexible where multiple approaches work; defaults not menus. Distinguish procedure skills (fragile sequence, tool choreography, project-specific gotchas → structure helps) from persona/mode skills (set tone, few unique constraints → brevity is correct).
 5. **Useful patterns** — gotchas, output templates, checklists, validation loops, progressive disclosure
+6. **Script quality** — non-interactive execution, safe defaults, actionable errors, meaningful exit codes, bounded output
+7. **Output quality** — realistic evals, clean-context comparisons, objective assertions, trace review, quality versus cost
 
 ## Workflow
 
